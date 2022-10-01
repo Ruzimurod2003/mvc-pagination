@@ -1,0 +1,20 @@
+﻿@model IndexVM;
+
+@for (int i = 1; i < Model.PageModel.PageNumber; i++)
+{
+    <li class="page-item">
+        <a asp-action="Index"
+       asp-route-page="@i" class="page-link">@i</a>
+    </li>
+}
+<li class="page-item active" aria-current="page">
+    <a asp-action="Index"
+       asp-route-page="@(Model.PageModel.PageNumber)" class="page-link">@(Model.PageModel.PageNumber)</a>
+</li>
+@for (int i = Model.PageModel.PageNumber + 1; i <= Model.PageModel.TotalPages; i++)
+{
+    <li class="page-item">
+        <a asp-action="Index"
+       asp-route-page="@i" class="page-link">@i</a>
+    </li>
+}

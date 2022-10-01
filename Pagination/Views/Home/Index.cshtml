@@ -1,0 +1,81 @@
+﻿@model IndexVM;
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>CompanyName</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Users)
+                {
+                    <tr>
+                        <td>
+                            @item.Id
+                        </td>
+                        <td>
+                            @item.Name
+                        </td>
+                        <td>
+                            @item.Company.Name
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <nav aria-label="...">
+            <ul class="pagination">
+                @if (Model.PageModel.HasPreviousPage)
+                {
+                    <li class="page-item">
+                        <a asp-action="Index"
+                       asp-route-page="1" class="page-link"><i class="bi bi-chevron-bar-left"></i></a>
+                    </li>
+                    <li class="page-item">
+                        <a asp-action="Index"
+                       asp-route-page="@(Model.PageModel.PageNumber - 1)" class="page-link"><i class="bi bi-chevron-left"></i></a>
+                    </li>
+                }
+                else
+                {
+                    <li class="page-item disabled">
+                        <a asp-action="Index"
+                       asp-route-page="1" class="page-link"><i class="bi bi-chevron-bar-left"></i></a>
+                    </li>
+                    <li class="page-item disabled">
+                        <a asp-action="Index"
+                       asp-route-page="@(Model.PageModel.PageNumber - 1)" class="page-link" tabindex="-1" aria-disabled="true"><i class="bi bi-chevron-left"></i></a>
+                    </li>
+                }
+                <partial name="_NumericPartial" model="Model" />
+                @if (Model.PageModel.HasNextPage)
+                {
+                    <li class="page-item">
+                        <a asp-action="Index"
+                       asp-route-page="@(Model.PageModel.PageNumber + 1)" class="page-link"><i class="bi bi-chevron-right"></i></a>
+                    </li>
+                    <li class="page-item">
+                        <a asp-action="Index"
+                       asp-route-page="@Model.PageModel.TotalPages" class="page-link"><i class="bi bi-chevron-bar-right"></i></a>
+                    </li>
+                }
+                else
+                {
+                    <li class="page-item disabled">
+                        <a class="page-link" asp-action="Index"
+                       asp-route-page="@(Model.PageModel.PageNumber + 1)" tabindex="-1" aria-disabled="true"><i class="bi bi-chevron-right"></i></a>
+                    </li>
+                    <li class="page-item disabled">
+                        <a asp-action="Index"
+                       asp-route-page="@Model.PageModel.TotalPages" class="page-link"><i class="bi bi-chevron-bar-right"></i></a>
+                    </li>
+                }
+            </ul>
+        </nav>
+</div>
